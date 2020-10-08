@@ -183,14 +183,14 @@ inline void DS909::noteOn(byte channel, byte note, byte velocity){
       getInstance()->bassDrum->noteOn();
       getInstance()->device->setLED(0, 4);
     break;
+    // Snare
+    case 40:
+      getInstance()->snare->noteOn(velocity);
+      getInstance()->device->setLED(1, 4);
+    break;
     // Clap
     case 39:
       getInstance()->clap->noteOn();
-      getInstance()->device->setLED(1, 4);
-    break;
-    // Snare
-    case 40:
-      getInstance()->snare->noteOn();
       getInstance()->device->setLED(2, 4);
     break;
     // low Tom
@@ -275,15 +275,22 @@ inline void DS909::onBDChange(byte inputIndex, unsigned int value, int diffToPre
  * On Snare Change
  */
 inline void DS909::onSNChange(byte inputIndex, unsigned int value, int diffToPrevious){
-  float tune = map(
-    value, 
+   float mix = (float)map(
+    (float)value, 
     getInstance()->device->getAnalogMinValue(), 
     getInstance()->device->getAnalogMaxValue(),
-    200,
-    800
+    0,
+    4*PI
   );
-    
-  getInstance()->snare->setPitch(tune);
+  
+  byte tone = constrain(100*cos(mix) + pow(mix,2), 0, 255);
+  byte decay = constrain(100*cos(mix+1.5*PI) + pow(mix,2), 0, 255);
+  byte pitch = constrain(100*cos(mix+0.5*PI) + pow(mix,2), 0, 255);
+//  byte tone = constrain(100*cos(mix+PI) + pow(mix,2), 0, 255);
+
+  getInstance()->snare->setTone(tone);
+  getInstance()->snare->setDecay(decay);
+  getInstance()->snare->setPitch(pitch);
 }
 
 /**

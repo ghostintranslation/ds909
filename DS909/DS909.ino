@@ -34,7 +34,7 @@ void setup() {
   AudioMemory(40);
 
   sgtl5000_1.enable();
-  sgtl5000_1.volume(1);
+  sgtl5000_1.volume(0.5);
   
   while (!Serial && millis() < 2500); // wait for serial monitor
 
