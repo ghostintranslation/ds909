@@ -210,7 +210,7 @@ inline void DS909::noteOn(byte channel, byte note, byte velocity){
     break;
     // Rimshot
     case 37:
-      getInstance()->rimshot->noteOn();
+      getInstance()->rimshot->noteOn(velocity);
       getInstance()->device->setLED(6, 4);
     break;
     // Closed High Hat
@@ -319,15 +319,19 @@ inline void DS909::onCPChange(byte inputIndex, unsigned int value, int diffToPre
  * On Rimshot Change
  */
 inline void DS909::onRMChange(byte inputIndex, unsigned int value, int diffToPrevious){
-  float tune = map(
-    value, 
+float mix = (float)map(
+    (float)value, 
     getInstance()->device->getAnalogMinValue(), 
     getInstance()->device->getAnalogMaxValue(),
-    200,
-    800
+    0,
+    4*PI
   );
-    
-  getInstance()->rimshot->setPitch(tune);
+  
+  byte pitch = constrain(100*cos(mix) + pow(mix,2), 0, 255);
+  byte tone = constrain(100*cos(mix+1.5*PI) + pow(mix,2), 0, 255);
+
+  getInstance()->rimshot->setPitch(pitch);
+  getInstance()->rimshot->setTone(tone);
 }
 
 /**
