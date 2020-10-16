@@ -76,7 +76,8 @@ inline void BassDrum::noteOn() {
 
 /**
  * Set the pitch
- * @param[byte] pitch The pitch
+ * 
+ * @param pitch The pitch
  */
 inline void BassDrum::setPitch(byte pitch){
   byte mappedFrequency = map(pitch, 0, 255, 30, 70);
@@ -88,7 +89,8 @@ inline void BassDrum::setPitch(byte pitch){
 
 /**
  * Set the decay
- * @param[byte] decay The decay
+ * 
+ * @param decay The decay
  */
 inline void BassDrum::setDecay(byte decay){
   unsigned int mappedDecay = map(decay, 0, 255, 400, 800);
@@ -100,11 +102,11 @@ inline void BassDrum::setDecay(byte decay){
 
 /**
  * Set the tone
+ * 
  * @param tone The tone
  */
 inline void BassDrum::setTone(byte tone){
   float mappedTone = (float)map((float)tone, (float)0, (float)255, (float)0.7, (float)1);
-//  float mappedClickTone = (float)map((float)tone, (float)0, (float)255, (float)0.5, (float)0.8);
   this->clickExtraFrequency = map(tone, 0, 255, 0, 15);
   
   this->click->pitchMod(mappedTone);

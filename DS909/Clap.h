@@ -53,7 +53,6 @@ AudioConnection          patchCord24(mixer, 0, usb1, 1);
  */
 class Clap{
   private:
-//    byte span;
     byte tone;
     byte decay;
     AudioSynthNoiseWhite     *white;
@@ -77,7 +76,6 @@ class Clap{
     
     AudioMixer4 * getOutput();
     void noteOn();
-//    void setSpan(byte span);
     void setTone(byte tone);
     void setDecay(byte decay);
 };
@@ -128,7 +126,6 @@ inline Clap::Clap(){
   this->clapFilter = new AudioFilterStateVariable();
   this->clapFilter->frequency(750);
   this->clapFilter->resonance(3);
-//  this->clapFilter->octaveControl(3);
 
   this->clapMixer = new AudioMixer4();
   this->clapMixer->gain(0, .8);
@@ -189,25 +186,10 @@ inline void Clap::noteOn() {
   this->clapEnvelope5->noteOn();
 }
 
-///**
-// * Set the span
-// * @param[byte] span The span
-// */
-//inline void Clap::setSpan(byte span){
-//  this->span = span;
-//  unsigned int mappedSpan = map(span, 0, 255, 12, 24);
-//
-//  this->clapEnvelope2->delay(mappedSpan);
-//  this->clapEnvelope2->decay(mappedSpan - 2);
-//  this->clapEnvelope3->delay(mappedSpan * 2);
-//  this->clapEnvelope3->decay(mappedSpan * 2 - 2);
-//  this->clapEnvelope4->delay(mappedSpan * 3);
-//  this->clapEnvelope5->delay(mappedSpan * 4);
-//}
-
 /**
  * Set the decay
- * @param[byte] decay The decay
+ * 
+ * @param decay The decay
  */
 inline void Clap::setDecay(byte decay){
   this->decay = decay;
@@ -218,6 +200,7 @@ inline void Clap::setDecay(byte decay){
 
 /**
  * Set the tone
+ * 
  * @param tone The tone
  */
 inline void Clap::setTone(byte tone){

@@ -1798,7 +1798,6 @@ class Hihat{
     AudioMixer4 * getOutput();
     void noteOn(bool open);
     void setPitch(float pitch);
-    void setDecay(byte decay);
 };
 
 /**
@@ -1806,7 +1805,6 @@ class Hihat{
  */
 inline Hihat::Hihat(){ 
   this->player = new AudioPlayPitchedMemory();
-//  this->player->frequency(100); 
   
   this->output = new AudioMixer4();
   this->output->gain(0, 0.15);
@@ -1823,6 +1821,8 @@ inline AudioMixer4 * Hihat::getOutput(){
 
 /**
  * Note on
+ * 
+ * @param open Is it an open hihat
  */
 inline void Hihat::noteOn(bool open) {
   if(open){
@@ -1832,27 +1832,12 @@ inline void Hihat::noteOn(bool open) {
   }
 }
 
-///**
-// * Set the pitch
-// * @param[byte] pitch The pitch
-// */
-//inline void Hihat::setPitch(byte pitch){
-//  this->pitch = pitch;
-//  unsigned int mappedFrequency = map(pitch, 0, 255, 1100, 2500);
-//}
-
 /**
  * Set the pitch
+ * 
+ * @param pitch The pitch
  */
 inline void Hihat::setPitch(float pitch) {
   this->player->frequency(constrain(pitch, 0, 1023));
-}
-
-/**
- * Set the decay
- * @param[byte] decay The decay
- */
-inline void Hihat::setDecay(byte decay){
-//  unsigned int mappedDecay = map(decay, 0, 255, 10, 1000);
 }
 #endif
