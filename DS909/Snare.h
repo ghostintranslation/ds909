@@ -11,29 +11,38 @@
 
 /*
 // GUItool: begin automatically generated code
-AudioSynthNoiseWhite     white;          //xy=69,116
-AudioFilterStateVariable filter;         //xy=192,127
-AudioEffectEnvelope      snareEnvelope;  //xy=342,130
-AudioSynthSimpleDrum     snareDrum2;     //xy=353,177
-AudioSynthSimpleDrum     snareDrum;      //xy=356,87
-AudioMixer4              snareMixer;     //xy=510,121
-AudioOutputI2S           i2s1;           //xy=688,89
-AudioOutputUSB           usb1;           //xy=703,156
+AudioSynthNoiseWhite     white;          //xy=58,111
+AudioFilterStateVariable filter;         //xy=181,122
+AudioEffectEnvelope      snareEnvelope;  //xy=331,125
+AudioSynthSimpleDrum     snareDrum2;     //xy=342,172
+AudioSynthSimpleDrum     snareDrum;      //xy=345,82
+AudioMixer4              snareMixer;     //xy=499,116
+AudioFilterStateVariable filterAll;        //xy=637,122
+AudioOutputI2S           i2s1;           //xy=655,235
+AudioOutputUSB           usb1;           //xy=657,284
 AudioOutputI2S           i2s2; //xy=989,453
 AudioOutputUSB           usb2; //xy=990,495
+AudioOutputI2S           is24; //xy=1002,491
+AudioOutputUSB           usb4; //xy=1003,533
+AudioOutputI2S           is26; //xy=1007,446
+AudioOutputUSB           usb6; //xy=1008,488
 AudioOutputI2S           is23;           //xy=1063,522
 AudioOutputUSB           usb3;           //xy=1064,564
+AudioOutputI2S           is25;           //xy=1076,560
+AudioOutputUSB           usb5;           //xy=1077,602
+AudioOutputI2S           is27; //xy=1081,515
+AudioOutputUSB           usb7; //xy=1082,557
 AudioConnection          patchCord1(white, 0, filter, 0);
 AudioConnection          patchCord2(filter, 1, snareEnvelope, 0);
 AudioConnection          patchCord3(snareEnvelope, 0, snareMixer, 1);
 AudioConnection          patchCord4(snareDrum2, 0, snareMixer, 2);
 AudioConnection          patchCord5(snareDrum, 0, snareMixer, 0);
-AudioConnection          patchCord6(snareMixer, 0, i2s1, 0);
-AudioConnection          patchCord7(snareMixer, 0, i2s1, 1);
-AudioConnection          patchCord8(snareMixer, 0, usb1, 0);
-AudioConnection          patchCord9(snareMixer, 0, usb1, 1);
+AudioConnection          patchCord6(snareMixer, 0, filterAll, 0);
+AudioConnection          patchCord7(filterAll, 1, i2s1, 0);
+AudioConnection          patchCord8(filterAll, 1, i2s1, 1);
+AudioConnection          patchCord9(filterAll, 1, usb1, 0);
+AudioConnection          patchCord10(filterAll, 1, usb1, 1);
 // GUItool: end automatically generated code
-
 */
 
 /*
@@ -134,7 +143,8 @@ inline void Snare::noteOn(byte velocity) {
 
 /**
  * Set the pitch
- * @param[byte] pitch The pitch
+ * 
+ * @param pitch The pitch
  */
 inline void Snare::setPitch(byte pitch){
   unsigned int mappedFrequency = map(pitch, 0, 255, 150, 300);
@@ -145,7 +155,8 @@ inline void Snare::setPitch(byte pitch){
 
 /**
  * Set the decay
- * @param[byte] decay The decay
+ * 
+ * @param decay The decay
  */
 inline void Snare::setDecay(byte decay){
   unsigned int mappedSnareDecay = map(decay, 0, 255, 50, 120);
@@ -157,6 +168,7 @@ inline void Snare::setDecay(byte decay){
 
 /**
  * Set the tone
+ * 
  * @param tone The tone
  */
 inline void Snare::setTone(byte tone){

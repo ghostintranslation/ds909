@@ -31,7 +31,6 @@ AudioConnection          patchCord6(filter1, 2, usb1, 1);
 AudioConnection          patchCord7(filter1, 2, i2s1, 1);
 AudioConnection          patchCord8(filter1, 2, i2s1, 0);
 // GUItool: end automatically generated code
-
 */
 
 /*
@@ -104,6 +103,8 @@ inline AudioMixer4 * Rimshot::getOutput(){
 
 /**
  * Note on
+ * 
+ * @param velocity The velocity
  */
 inline void Rimshot::noteOn(byte velocity) {
   this->output->gain(0, map((float)velocity, 0, 255, 0, 1));
@@ -113,6 +114,8 @@ inline void Rimshot::noteOn(byte velocity) {
 
 /**
  * Set the pitch
+ * 
+ * @param pitch The pitch
  */
 inline void Rimshot::setPitch(byte pitch) {
   unsigned int mappedFrequency = map(pitch, 0, 255, 300, 500);
@@ -121,6 +124,8 @@ inline void Rimshot::setPitch(byte pitch) {
 
 /**
  * Set the tone
+ * 
+ * @param tone The tone
  */
 inline void Rimshot::setTone(byte tone) {
   float mappedTone = map((float)tone, 0, 255, 0, 0.2);

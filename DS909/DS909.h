@@ -175,6 +175,10 @@ inline void DS909::update(){
 
 /**
  * Note on
+ * 
+ * @param channel The midi chnnnel
+ * @param note The midi note
+ * @param velocity The midi velocity
  */
 inline void DS909::noteOn(byte channel, byte note, byte velocity){
   switch(note){
@@ -248,6 +252,10 @@ inline AudioMixer4 * DS909::getOutput(){
 
 /**
  * On Bass Drum Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onBDChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float mix = (float)map(
@@ -273,6 +281,10 @@ inline void DS909::onBDChange(byte inputIndex, unsigned int value, int diffToPre
 
 /**
  * On Snare Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onSNChange(byte inputIndex, unsigned int value, int diffToPrevious){
    float mix = (float)map(
@@ -295,6 +307,10 @@ inline void DS909::onSNChange(byte inputIndex, unsigned int value, int diffToPre
 
 /**
  * On Clap Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onCPChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float mix = (float)map(
@@ -307,16 +323,17 @@ inline void DS909::onCPChange(byte inputIndex, unsigned int value, int diffToPre
   
   byte tone = constrain(100*cos(mix) + pow(mix,2), 0, 255);
   byte decay = constrain(100*cos(mix+1.5*PI) + pow(mix,2), 0, 255);
-//  byte span = constrain(100*cos(mix+0.5*PI) + pow(mix,2), 0, 255);
-//  byte tone = constrain(100*cos(mix+PI) + pow(mix,2), 0, 255);
 
-//  getInstance()->clap->setSpan(span);
   getInstance()->clap->setDecay(decay);
   getInstance()->clap->setTone(tone);
 }
 
 /**
  * On Rimshot Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onRMChange(byte inputIndex, unsigned int value, int diffToPrevious){
 float mix = (float)map(
@@ -336,6 +353,10 @@ float mix = (float)map(
 
 /**
  * On Low Tom Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onLTChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float mix = (float)map(
@@ -355,6 +376,10 @@ inline void DS909::onLTChange(byte inputIndex, unsigned int value, int diffToPre
 
 /**
  * On Mid Tom Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onMTChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float mix = (float)map(
@@ -374,6 +399,10 @@ inline void DS909::onMTChange(byte inputIndex, unsigned int value, int diffToPre
 
 /**
  * On High Tom Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onHTChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float mix = (float)map(
@@ -393,6 +422,10 @@ inline void DS909::onHTChange(byte inputIndex, unsigned int value, int diffToPre
 
 /**
  * On Hihat Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onHHChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float tune = map(
@@ -408,6 +441,10 @@ inline void DS909::onHHChange(byte inputIndex, unsigned int value, int diffToPre
 
 /**
  * On Cymbal Change
+ * 
+ * @param inputIndex The input index
+ * @param value The input value
+ * @param diffToPrevious The diff value to previous value
  */
 inline void DS909::onCYChange(byte inputIndex, unsigned int value, int diffToPrevious){
   float tune = map(

@@ -52,7 +52,8 @@ inline void Tom::noteOn() {
 
 /**
  * Set the pitch
- * @param[byte] pitch The pitch
+ * 
+ * @param pitch The pitch
  */
 inline void Tom::setPitch(byte pitch){
   unsigned int mappedFrequency = map(pitch, 0, 255, 80, 400);
@@ -61,7 +62,8 @@ inline void Tom::setPitch(byte pitch){
 
 /**
  * Set the decay
- * @param[byte] decay The decay
+ * 
+ * @param decay The decay
  */
 inline void Tom::setDecay(byte decay){
   unsigned int mappedDecay = map(decay, 0, 255, 300, 1500);

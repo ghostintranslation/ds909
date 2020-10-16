@@ -22,7 +22,6 @@ DS909 * ds909 = DS909::getInstance();
 AudioOutputI2S  i2s2;
 AudioConnection patchCord1(*ds909->getOutput(), 0, i2s2, 0);
 AudioConnection patchCord2(*ds909->getOutput(), 0, i2s2, 1);
-AudioControlSGTL5000 sgtl5000_1;
 AudioControlSGTL5000 audioBoard;
  
 void setup() {
@@ -33,8 +32,8 @@ void setup() {
   // Audio connections require memory to work.
   AudioMemory(40);
 
-  sgtl5000_1.enable();
-  sgtl5000_1.volume(0.5);
+  audioBoard.enable();
+  audioBoard.volume(0.5);
   
   while (!Serial && millis() < 2500); // wait for serial monitor
 
