@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// Source https://github.com/zueblin/Polaron
+
 #ifndef AudioPlayPitchedMemory_h
 #define AudioPlayPitchedMemory_h
 

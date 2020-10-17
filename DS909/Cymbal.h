@@ -4808,6 +4808,8 @@ inline AudioMixer4 * Cymbal::getOutput(){
 
 /**
  * Note on
+ * 
+ * @param crash Is it a crash
  */
 inline void Cymbal::noteOn(bool crash) {
   if(crash){
@@ -4815,58 +4817,6 @@ inline void Cymbal::noteOn(bool crash) {
   }else{
     this->player->play(this->cymbalSample, 35520);
   }
-//byte pitch = 2;
-//  if(crash){
-//    unsigned int newData[10177*pitch];
-//    unsigned int j=0;
-//    for (unsigned int i=0; i<10177; i++) {
-//      newData[j] = this->crashSample[i];
-//      j++;
-//      
-//      for(byte k=1; k<pitch; k++){
-//        if(i+1 < 10177){
-//          newData[j] = (float)this->crashSample[i] + (float)(((float)k/(pitch+1)) * (float)((float)this->crashSample[i+1] - (float)this->crashSample[i]));
-//         
-//          Serial.print(newData[j]);
-//          Serial.print(" = ");
-//          Serial.print(this->crashSample[i]);
-//          Serial.print(" + ");
-//          Serial.print(((float)k/(pitch+1)));
-//          Serial.print(" * (");
-//          Serial.print(this->crashSample[i+1]);
-//          Serial.print(" - ");
-//          Serial.print(this->crashSample[i]);
-//          Serial.println(") ");
-//          j++;
-//        }
-//      }
-//      
-//      Serial.println("");
-//    }
-//
-//    this->player->play(newData);
-//  }else{
-//    unsigned int newData[8897*pitch];
-//    int j=0;
-//    for (int i=0; i<8897; i++) {
-//      newData[j] = this->cymbalSample[i];
-//      j++;
-//      
-//      for(byte k=1; k<pitch; k++){
-//        if(i+1 < 8897){
-//          newData[j] = this->cymbalSample[i] + ((float)k/(pitch+1)) * (this->cymbalSample[i+1] - this->cymbalSample[i]);
-//          j++;
-//        }
-//      }
-//    }
-//
-////    for (int j=0; j<8897*4; j++) {
-////      Serial.println(newData[j]);
-////    }
-//    this->player->play(newData);
-//  }
-  
-  
 }
 
 
