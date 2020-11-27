@@ -4,7 +4,7 @@
 \_|| |\_/__) |    _|_| |    | | \| || |__)|__| | | _|_\_/| |
 
 DS909
-v0.5
+v1.0
 
 https://ghostintranslation.bandcamp.com
 https://www.instagram.com/ghostintranslation
