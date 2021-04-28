@@ -51,7 +51,6 @@ class DS909{
     static DS909 *getInstance();
     void init();
     void update();
-    static void noteOn(byte channel, byte note, byte velocity);
     AudioMixer4 * getOutput();
 
     // Callbacks
@@ -64,6 +63,18 @@ class DS909{
     static void onLTChange(byte inputIndex, float value, int diffToPrevious);
     static void onHHChange(byte inputIndex, float value, int diffToPrevious);
     static void onCYChange(byte inputIndex, float value, int diffToPrevious);
+    // Midi callbacks
+    static void onMidiNoteOn(byte channel, byte note, byte velocity);
+    static void onMidiBDChange(byte channel, byte note, byte velocity);
+    static void onMidiSNChange(byte channel, byte note, byte velocity);
+    static void onMidiCPChange(byte channel, byte note, byte velocity);
+    static void onMidiRMChange(byte channel, byte note, byte velocity);
+    static void onMidiHTChange(byte channel, byte note, byte velocity);
+    static void onMidiMTChange(byte channel, byte note, byte velocity);
+    static void onMidiLTChange(byte channel, byte note, byte velocity);
+    static void onMidiHHChange(byte channel, byte note, byte velocity);
+    static void onMidiCYChange(byte channel, byte note, byte velocity);
+    
 };
 
 // Singleton pre init
@@ -153,7 +164,18 @@ inline void DS909::init(){
   this->device->setHandlePotentiometerChange(6, onRMChange);
   this->device->setHandlePotentiometerChange(7, onHHChange);
   this->device->setHandlePotentiometerChange(8, onCYChange);
-  this->device->setHandleMidiNoteOn(noteOn);
+  // MIDI callbacks
+  this->device->setHandleMidiNoteOn(onMidiNoteOn);
+  this->device->setHandleMidiControlChange(0, 0, "BD", onMidiBDChange);
+  this->device->setHandleMidiControlChange(0, 1, "SN", onMidiSNChange);
+  this->device->setHandleMidiControlChange(0, 2, "CP", onMidiCPChange);
+  this->device->setHandleMidiControlChange(0, 3, "LT", onMidiLTChange);
+  this->device->setHandleMidiControlChange(0, 4, "MT", onMidiMTChange);
+  this->device->setHandleMidiControlChange(0, 5, "HT", onMidiHTChange);
+  this->device->setHandleMidiControlChange(0, 6, "RM", onMidiRMChange);
+  this->device->setHandleMidiControlChange(0, 7, "HH", onMidiHHChange);
+  this->device->setHandleMidiControlChange(0, 8, "CY", onMidiCYChange);
+  
 }
 
 /**
@@ -170,7 +192,7 @@ inline void DS909::update(){
  * @param note The midi note
  * @param velocity The midi velocity
  */
-inline void DS909::noteOn(byte channel, byte note, byte velocity){
+inline void DS909::onMidiNoteOn(byte channel, byte note, byte velocity){
   switch(note){
     // Bass Drum
     case 36:
@@ -270,6 +292,21 @@ inline void DS909::onBDChange(byte inputIndex, float value, int diffToPrevious){
 }
 
 /**
+ * On MIDI BD Change
+ */
+void DS909::onMidiBDChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onBDChange(control, mapValue, 255);
+}
+
+/**
  * On Snare Change
  * 
  * @param inputIndex The input index
@@ -296,6 +333,21 @@ inline void DS909::onSNChange(byte inputIndex, float value, int diffToPrevious){
 }
 
 /**
+ * On MIDI SN Change
+ */
+void DS909::onMidiSNChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onSNChange(control, mapValue, 255);
+}
+
+/**
  * On Clap Change
  * 
  * @param inputIndex The input index
@@ -316,6 +368,21 @@ inline void DS909::onCPChange(byte inputIndex, float value, int diffToPrevious){
 
   getInstance()->clap->setDecay(decay);
   getInstance()->clap->setTone(tone);
+}
+
+/**
+ * On MIDI CP Change
+ */
+void DS909::onMidiCPChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onCPChange(control, mapValue, 255);
 }
 
 /**
@@ -342,6 +409,21 @@ float mix = (float)map(
 }
 
 /**
+ * On MIDI RM Change
+ */
+void DS909::onMidiRMChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onRMChange(control, mapValue, 255);
+}
+
+/**
  * On Low Tom Change
  * 
  * @param inputIndex The input index
@@ -362,6 +444,21 @@ inline void DS909::onLTChange(byte inputIndex, float value, int diffToPrevious){
 
   getInstance()->lowTom->setDecay(decay);
   getInstance()->lowTom->setPitch(pitch);
+}
+
+/**
+ * On MIDI LT Change
+ */
+void DS909::onMidiLTChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onLTChange(control, mapValue, 255);
 }
 
 /**
@@ -388,6 +485,21 @@ inline void DS909::onMTChange(byte inputIndex, float value, int diffToPrevious){
 }
 
 /**
+ * On MIDI MT Change
+ */
+void DS909::onMidiMTChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onMTChange(control, mapValue, 255);
+}
+
+/**
  * On High Tom Change
  * 
  * @param inputIndex The input index
@@ -411,6 +523,21 @@ inline void DS909::onHTChange(byte inputIndex, float value, int diffToPrevious){
 }
 
 /**
+ * On MIDI HT Change
+ */
+void DS909::onMidiHTChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onHTChange(control, mapValue, 255);
+}
+
+/**
  * On Hihat Change
  * 
  * @param inputIndex The input index
@@ -427,6 +554,21 @@ inline void DS909::onHHChange(byte inputIndex, float value, int diffToPrevious){
   );
     
   getInstance()->hihat->setPitch(tune);
+}
+
+/**
+ * On MIDI HH Change
+ */
+void DS909::onMidiHHChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onHHChange(control, mapValue, 255);
 }
 
 /**
@@ -448,5 +590,18 @@ inline void DS909::onCYChange(byte inputIndex, float value, int diffToPrevious){
   getInstance()->cymbal->setPitch(tune);
 }
 
-
+/**
+ * On MIDI CY Change
+ */
+void DS909::onMidiCYChange(byte channel, byte control, byte value){
+  unsigned int mapValue = map(
+    value, 
+    0,
+    127,
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue()
+  );
+  
+  getInstance()->onCYChange(control, mapValue, 255);
+}
 #endif

@@ -6,7 +6,8 @@
 DS909
 v1.1.0
 
-If you enjoy my work and music please consider donating.
+Support my work:
+https://www.paypal.com/paypalme/ghostintranslation
 
 https://www.ghostintranslation.com/
 https://ghostintranslation.bandcamp.com/
