@@ -9,8 +9,10 @@ It is based on [Motherboard9](https://github.com/ghostintranslation/motherboard9
 You can get the PCBs and front panel here:<br/>
 https://ghostintranslation.bandcamp.com/merch/ds909-panel-and-pcb
 
-
-<img src="ds909-black.jpg" width="200px"/> <img src="ds909-white.jpg" width="200px"/>
+<p>
+<img src="ds909-black.jpg" width="300px"/> <img src="ds909-white.jpg" width="300px"/>
+</p>
+I was missing some leds 😅
 
 ## Features
 
