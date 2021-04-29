@@ -6,7 +6,8 @@ DS909 is a 9 voices drum synthesizer, largerly inspired by the TR-909 but not qu
 
 It is based on [Motherboard9](https://github.com/ghostintranslation/motherboard9), see in there for schematics.
 
-I sell the PCBs and front panel if you wish to build it. <br/>You can get them here: https://ghostintranslation.bandcamp.com/merch/ds909-panel-and-pcb
+You can get the PCBs and front panel here:<br/>
+https://ghostintranslation.bandcamp.com/merch/ds909-panel-and-pcb
 
 
 <img src="ds909-black.jpg" width="200px"/> <img src="ds909-white.jpg" width="200px"/>
@@ -19,6 +20,7 @@ I sell the PCBs and front panel if you wish to build it. <br/>You can get them h
 * MIDI over USB
 * MIDI over mini jack
 * Audio jack output
+* Audio output over USB
 
 ## Dimensions
 
@@ -38,31 +40,55 @@ What things you need to make it work:
 1 MOTHERBOARD9A pcb
 1 MOTHERBOARD9B pcb
 1 DS909 front panel pcb
-9 vertical linear 10k potentiometers
+9 vertical linear 10k potentiometers with their nuts
+1 5 pins male header
+1 5 pins female headers
 3 14 pins male header
 5 14 pins female header
-1 5 pins female headers
+2 14 pins long female header
 6 CD4051 multiplexers
 6 DIP16 IC sockets (optional)
 2 3.5mm jack connectors
-1 4 positions dipswitch (optional)
-1 resistor ~ 22ohm *
+1 resistor ~ 22ohm
 9 LED
+1 4 positions dipswitch (optional)
 ```
 
-* Regarding the resistor, this resistor is for the leds, you might notice that a 1ohm resistor will do the trick too, this is because the multiplexers have actually impedance depending on the switch frequency.
+Here is a list of useful links to get these parts: https://github.com/ghostintranslation/parts
 
-I personally get these parts from multiple stores: digikey.com, thonk.co.uk, modularaddict.com, amazon, aliexpress... See [Motherboard9](https://github.com/ghostintranslation/motherboard9) for more details about parts.
+Note: 
+- The resistor doesn't need to be high because the multiplexers already are resistive, so try a few values. You can place the resistor and LEDs without soldering to test, there should be enough contact.
+- The dipswitch is optional, without it the module will listen to channel 1.
 
-In order to run any sketch on the Teensy you have to install the Teensyduino add-on to Arduino.
+### Assembly
+
+1. Solder male 14 pins headers on the audio board
+2. Solder 14 pins long female header and 5 pins male header on Teensy
+3. Solder 14 pins male headers on MOTHERBOARD9A
+4. Place the potentiometers and LEDs on MOTHERBOARD9A, and attach the front panel
+5. Solder the potentiometers and the LEDs
+6. Place the 14 pins and 5 pins female headers for the Teensy on MOTHERBOARD9B, insert the Teensy on them, then solder the headers
+7. Detach the Teensy for now
+8. Solder the jack connectors, the dipswitch and the resistor on MOTHERBOARD9B
+9. Place 14 pins female headers on MOTHERBOARD9B, connect MOTHERBOARD9A on them, then solder the headers
+10. Detach the boards for now
+11. Solder IC sockets on IC1, IC2, IC3, IC4, IC7 and IC8 positions on MOTHERBOARD9B
+12. Add the multiplexers on the sockets, connect the 2 boards and connect the Teensy and audio board
+
+Note: Be careful how you place the potentiometers:
+
+<img src="https://github.com/ghostintranslation/motherboard9/blob/master/input-traces.png" width="200px"/>
+
+### Firmware
+
+In order to run any sketch on the Teensy you have to install Arduino and the Teensyduino add-on.
 Follow the instructions from the official page:
 https://www.pjrc.com/teensy/teensyduino.html
 
-Then open the sketch located in the Synth folder of this repo.
-
-In the Tools -> USB Type menu, choose "Serial + midi".
-
-Then you are ready to compile and upload the sketch.
+1. Then open `DS909.ino` located in the `DS909` folder of this repo.
+2. In the Tools -> USB Type menu, choose `Serial + midi + audio`.
+3. Plug the Teensy to your computer with a micro USB cable. (It's ok if the Teensy is on the module)
+4. Then just click the arrow button to upload the code
 
 ## How to use
 
@@ -119,16 +145,33 @@ CY
         - Crash: 49
 ```
 
+All of the inputs are available via MIDI CC.
+
 ## MIDI
+
+DS909 supports MIDI in via USB and TS jack. It doesn't send out any MIDI.
+
+The default settings are:
+```
+CC 0 = BD
+CC 1 = SN
+CC 2 = CP
+CC 3 = LT
+CC 4 = MT
+CC 5 = HT
+CC 6 = RM
+CC 7 = HH
+CC 8 = CY
+```
+
+These settings can be changed in the code or via the web editor: http://ghostintranslation.com/editor
+
+**Important:**
 
 The MIDI input and output jacks are directly connected to the Teensy serial input and output. That means there is not protection against voltage or current. It is primarily ment to connect 2 of these modules, or 2 Teensy together. If you want to connect something else to it make sure to provide a maximum of 3.3v and 250 mA.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 # About me
-You can find me on Bandcamp and Instagram:
+You can find me on Bandcamp, Instagram, Youtube and my own site:
 
 https://ghostintranslation.bandcamp.com/
 
@@ -137,3 +180,11 @@ https://www.instagram.com/ghostintranslation/
 https://www.youtube.com/channel/UCcyUTGTM-hGLIz4194Inxyw
 
 https://www.ghostintranslation.com/
+
+# Support
+To support my work:<br>
+https://www.paypal.com/paypalme/ghostintranslation
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
