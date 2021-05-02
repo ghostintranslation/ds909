@@ -1,7 +1,7 @@
 #ifndef DS909_h
 #define DS909_h
 
-#include "Motherboard9.h"
+#include "Motherboard.h"
 #include "BassDrum.h"
 #include "Snare.h"
 #include "Clap.h"
@@ -19,7 +19,7 @@ class DS909{
     DS909();
    
     // Motherboard
-    Motherboard9 *device;
+    Motherboard *device;
     
     // Bass Drum
     BassDrum *bassDrum;
@@ -94,8 +94,6 @@ inline DS909::DS909(){
   this->hihat = new Hihat();
   this->cymbal = new Cymbal();
   
-  this->device = Motherboard9::getInstance();
-  
   this->mixer1 = new AudioMixer4();
   this->mixer1->gain(0, 1 );
   this->mixer1->gain(1, 1 );
@@ -145,7 +143,7 @@ inline DS909 *DS909::getInstance()    {
  * Init
  */
 inline void DS909::init(){
-  device->init(
+  this->device = Motherboard::init(
     "DS909",
     {
       Potentiometer, Potentiometer, Potentiometer,
@@ -164,6 +162,7 @@ inline void DS909::init(){
   this->device->setHandlePotentiometerChange(6, onRMChange);
   this->device->setHandlePotentiometerChange(7, onHHChange);
   this->device->setHandlePotentiometerChange(8, onCYChange);
+  
   // MIDI callbacks
   this->device->setHandleMidiNoteOn(onMidiNoteOn);
   this->device->setHandleMidiControlChange(0, 0, "BD", onMidiBDChange);

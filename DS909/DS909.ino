@@ -4,7 +4,7 @@
 \_|| |\_/__) |    _|_| |    | | \| || |__)|__| | | _|_\_/| |
 
 DS909
-v1.1.0
+v1.2.0
 
 Support my work:
 https://www.paypal.com/paypalme/ghostintranslation
@@ -44,10 +44,11 @@ void setup() {
   audioBoard.enable();
   audioBoard.volume(0.5);
   
-  // Starting sequence
+  // Ready!
   Serial.println("Ready!");
 }
 
 void loop() {
+  // DS909 update
   ds909->update();
 }
