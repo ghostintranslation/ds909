@@ -67,7 +67,13 @@ Note:
 1. Solder male 14 pins headers on the audio board
 2. Solder 14 pins long female header and 5 pins male header on Teensy
 3. Solder 14 pins male headers on MOTHERBOARD9A
-4. Place the potentiometers and LEDs on MOTHERBOARD9A, and attach the front panel
+4. Place the potentiometers and LEDs on MOTHERBOARD9A. LEDs are installed anode to the left. Attach the front panel
+
+Note: Be careful how you place the potentiometers:
+
+<img src="https://github.com/ghostintranslation/motherboard/raw/main/input-traces.png" width="200px"/>
+<img src="ds909-potentiometers.jpg" width="300px"/>
+
 5. Solder the potentiometers and the LEDs
 6. Place the 14 pins and 5 pins female headers for the Teensy on MOTHERBOARD9B, insert the Teensy on them, then solder the headers
 7. Detach the Teensy for now
@@ -77,9 +83,6 @@ Note:
 11. Solder IC sockets on IC1, IC2, IC3, IC4, IC7 and IC8 positions on MOTHERBOARD9B
 12. Add the multiplexers on the sockets, connect the 2 boards and connect the Teensy and audio board
 
-Note: Be careful how you place the potentiometers:
-
-<img src="https://github.com/ghostintranslation/motherboard/raw/main/input-traces.png" width="200px"/>
 
 ### Firmware
 
